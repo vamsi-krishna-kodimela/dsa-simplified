@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { MainMenu } from "@/components/ui/custom/main-menu";
+import { Header } from "@/components/ui/custom/header";
 
 export const metadata: Metadata = {
   title: "DSA Simplified",
@@ -13,7 +16,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <SidebarProvider className="w-full flex" defaultOpen={true}>
+          <MainMenu />
+          <div className="flex-1">
+            <Header />
+            <main className="p-8">{children}</main>
+          </div>
+        </SidebarProvider>
+      </body>
     </html>
   );
 }
