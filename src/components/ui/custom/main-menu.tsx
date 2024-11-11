@@ -1,13 +1,18 @@
+"use client";
 import React from "react";
 import {
   Sidebar,
   SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuSub,
 } from "../sidebar";
+import { ChevronDown, ChevronRight, Home } from "lucide-react";
 import {
   Collapsible,
   CollapsibleContent,
@@ -17,11 +22,18 @@ import {
 // Menu items.
 const items = [
   {
-    group: "Basics",
-    links: [
+    group: "Learn",
+    sections: [
       {
+        open: false,
         title: "Basics",
-        url: "",
+        links: [
+          {
+            title: "Time Complexity",
+            url: "",
+            icon: Home,
+          },
+        ],
       },
     ],
   },
@@ -30,31 +42,42 @@ const items = [
 export const MainMenu = () => {
   return (
     <Sidebar>
-      <SidebarHeader>
-        <h1 className="text-xl font-bold p-4 text-slate-800">DSA Simplified</h1>
+      <SidebarHeader className="p-4">
+        <h1 className="text-xl font-bold">DSA Simplified</h1>
       </SidebarHeader>
-      <SidebarContent className="p-4 pt-0">
+      <SidebarContent>
         {items.map((item) => (
-          <SidebarMenu key={item.group}>
-            <Collapsible className="group/collapsible">
-              <SidebarMenuItem>
-                <CollapsibleTrigger asChild>
-                  <SidebarMenuButton className="flex items-center font-medium text-base">
-                    {item.group}
-                  </SidebarMenuButton>
-                </CollapsibleTrigger>
-                <CollapsibleContent>
-                  <SidebarMenuSub>
-                    {item.links.map((link) => (
-                      <a href={link.url} key={link.title} className="text-base">
-                        {link.title}
-                      </a>
-                    ))}
-                  </SidebarMenuSub>
-                </CollapsibleContent>
-              </SidebarMenuItem>
-            </Collapsible>
-          </SidebarMenu>
+          <SidebarGroup key={item.group}>
+            <SidebarGroupLabel>{item.group}</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {item.sections.map((section) => (
+                  <Collapsible
+                    key={section.title}
+                    className="group/collapsible"
+                  >
+                    <SidebarMenuItem>
+                      <CollapsibleTrigger asChild>
+                        <SidebarMenuButton className="flex items-center justify-between font-medium p-2">
+                          {section.title}
+                          {section.open ? <ChevronDown /> : <ChevronRight />}
+                        </SidebarMenuButton>
+                      </CollapsibleTrigger>
+                      <CollapsibleContent>
+                        <SidebarMenuSub>
+                          {section.links.map((link) => (
+                            <a href={link.url} key={link.title}>
+                              {link.title}
+                            </a>
+                          ))}
+                        </SidebarMenuSub>
+                      </CollapsibleContent>
+                    </SidebarMenuItem>
+                  </Collapsible>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
         ))}
       </SidebarContent>
     </Sidebar>
