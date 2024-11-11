@@ -18,6 +18,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "../collapsible";
+import Image from "next/image";
 
 // Menu items.
 const items = [
@@ -30,7 +31,7 @@ const items = [
         links: [
           {
             title: "Time Complexity",
-            url: "",
+            url: "/learn/time-complexity",
             icon: Home,
           },
         ],
@@ -42,7 +43,14 @@ const items = [
 export const MainMenu = () => {
   return (
     <Sidebar>
-      <SidebarHeader className="p-4">
+      <SidebarHeader className="p-4 flex flex-row gap-2 items-center">
+        <Image
+          src="/images/dsa-simplified.svg"
+          width={40}
+          height={40}
+          alt="DSA Simplified"
+          className="rounded"
+        />
         <h1 className="text-xl font-bold">DSA Simplified</h1>
       </SidebarHeader>
       <SidebarContent>
